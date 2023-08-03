@@ -3,4 +3,5 @@ include 'Kullanici-Service'
 include 'SehirService'
 include 'TahminService'
 include 'SkorService'
+include 'config-server'
 

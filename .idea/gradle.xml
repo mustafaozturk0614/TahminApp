@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/SehirService" />
             <option value="$PROJECT_DIR$/SkorService" />
             <option value="$PROJECT_DIR$/TahminService" />
+            <option value="$PROJECT_DIR$/config-server" />
           </set>
         </option>
       </GradleProjectSettings>
