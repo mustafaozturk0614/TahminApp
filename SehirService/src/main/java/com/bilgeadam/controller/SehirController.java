@@ -25,4 +25,9 @@ public class SehirController {
 
         return ResponseEntity.ok(sehirService.sehirGetir(id));
     }
+    @GetMapping("/randomsehir")
+    public  ResponseEntity<Sehir> sehirGetir(){
+
+        return ResponseEntity.ok(sehirService.randomSehirGetir());
+    }
 }

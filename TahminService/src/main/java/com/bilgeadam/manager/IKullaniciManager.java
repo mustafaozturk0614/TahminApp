@@ -6,12 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(url = "http://localhost:9091/sehir",decode404 = true,name = "tahmin-sehir")
-public interface ISehirManager {
+@FeignClient(url = "http://localhost:9090/kullanici",decode404 = true,name = "tahmin-kullanici")
+public interface IKullaniciManager {
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Sehir> sehirGetir(@PathVariable Long id);
-
-    @GetMapping("/randomsehir")
-    public  ResponseEntity<Sehir> sehirGetir();
+    @GetMapping("/updatetahmin/{id}/{tahminId}")
+    public ResponseEntity<Boolean> updateAktifTahminId(@PathVariable Long id,@PathVariable long tahminId);
 }

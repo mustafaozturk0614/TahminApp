@@ -10,6 +10,7 @@ import com.bilgeadam.utility.ServiceManager;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class SehirService extends ServiceManager<Sehir,Long> {
@@ -28,6 +29,20 @@ private  final SehirRepository sehirRepository;
     }
 
     public Sehir sehirGetir(Long id) {
+        Optional<Sehir> sehir=findById(id);
+        if (sehir.isEmpty()){
+            throw  new SehirManagerException(ErrorType.SEHIR_NOT_FOUND);
+        }
+        return sehir.get() ;
+    }    public Sehir randomSehirGetir() {
+        Random random=new Random();
+       // Long id1=sehirRepository.getLAstId();
+       // Sehir sehir2=sehirRepository.getFirstByOrderByIdDesc();
+        Long id2=sehirRepository.countAllBy();
+ //   System.out.println(id1);
+        System.out.println(id2);
+    //    System.out.println(sehir2);
+        Long id=random.nextLong(1,id2+1);
         Optional<Sehir> sehir=findById(id);
         if (sehir.isEmpty()){
             throw  new SehirManagerException(ErrorType.SEHIR_NOT_FOUND);

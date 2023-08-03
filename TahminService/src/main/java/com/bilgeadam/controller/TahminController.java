@@ -1,5 +1,6 @@
 package com.bilgeadam.controller;
 
+import com.bilgeadam.dto.request.TahminRequestDto;
 import com.bilgeadam.dto.response.TahminResponeDto;
 import com.bilgeadam.service.TahminService;
 import lombok.RequiredArgsConstructor;
@@ -19,5 +20,11 @@ public class TahminController {
     public ResponseEntity<TahminResponeDto> tahminOlustur(@RequestParam Long userId){
 
         return ResponseEntity.ok(tahminService.olustur(userId));
+    }
+
+    @PostMapping("/tahminyap")
+    public ResponseEntity<String> tahminYap(@RequestBody TahminRequestDto dto){
+
+        return ResponseEntity.ok(tahminService.tahminYap(dto));
     }
 }
