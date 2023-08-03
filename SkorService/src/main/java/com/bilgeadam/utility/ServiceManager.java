@@ -2,6 +2,7 @@ package com.bilgeadam.utility;
 
 
 
+
 import com.bilgeadam.repository.entity.BaseEntity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

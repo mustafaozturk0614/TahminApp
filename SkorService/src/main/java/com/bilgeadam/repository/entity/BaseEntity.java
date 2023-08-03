@@ -1,4 +1,4 @@
-package com.bilgeadam.entity;
+package com.bilgeadam.repository.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

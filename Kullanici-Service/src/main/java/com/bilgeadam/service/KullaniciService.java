@@ -46,6 +46,7 @@ public class KullaniciService extends ServiceManager<Kullanici,Long> {
             throw new KullaniciManagerException(ErrorType.USER_NOT_FOUND);
         }
         kullanici.get().setAktifTahminId(tahminId);
+        kullanici.get().getTahminler().add(tahminId);
         update(kullanici.get());
 
         return true;

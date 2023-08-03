@@ -1,16 +1,18 @@
-package com.bilgeadam.dto.response;
+package com.bilgeadam.rabbitmq.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TahminResponeDto {
-    private Long id;
-    private String blur;
-    private String userId;
+public class SkorModel implements Serializable {
+
+    private int skor;
+    private Long userId;
 }

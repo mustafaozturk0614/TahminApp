@@ -8,6 +8,8 @@ import com.bilgeadam.exception.TahminManagerException;
 import com.bilgeadam.manager.IKullaniciManager;
 import com.bilgeadam.manager.ISehirManager;
 import com.bilgeadam.mapper.ITahminMapper;
+import com.bilgeadam.rabbitmq.model.SkorModel;
+import com.bilgeadam.rabbitmq.producer.SkorProducer;
 import com.bilgeadam.repository.TahminRepository;
 import com.bilgeadam.repository.entity.Tahmin;
 import com.bilgeadam.utility.ServiceManager;
@@ -22,12 +24,14 @@ public class TahminService extends ServiceManager<Tahmin,Long> {
 
     private final ISehirManager sehirManager;
     private final IKullaniciManager kullaniciManager;
+    private  final SkorProducer producer;
 
-    public TahminService(TahminRepository tahminRepository, ISehirManager sehirManager, IKullaniciManager kullaniciManager) {
+    public TahminService(TahminRepository tahminRepository, ISehirManager sehirManager, IKullaniciManager kullaniciManager, SkorProducer producer) {
         super(tahminRepository);
         this.tahminRepository = tahminRepository;
         this.sehirManager = sehirManager;
         this.kullaniciManager = kullaniciManager;
+        this.producer = producer;
     }
 
     public TahminResponeDto olustur(Long userId) {
@@ -55,12 +59,14 @@ public class TahminService extends ServiceManager<Tahmin,Long> {
         if (tahmin.get().getDogruCevap().equalsIgnoreCase(dto.getTahmin())){
             tahmin.get().setDogrulandiMi(true);
             update(tahmin.get());
+            producer.sendSkor(SkorModel.builder().skor(10).userId(dto.getUserId()).build());
             return "Tebrikler Doğru cevap ";
         }
 
         tahmin.get().setHak(tahmin.get().getHak()-1);
         update(tahmin.get());
-        return "Yanlış cevap lutfen tekrar deneyiniz"+ tahmin.get().getHak()+" hakkınız kaldı";
+        producer.sendSkor(SkorModel.builder().skor(-5).userId(dto.getUserId()).build());
+        return "Yanlış cevap lutfen tekrar deneyiniz "+ tahmin.get().getHak()+" hakkınız kaldı";
 
     }
 }
